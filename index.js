@@ -1,5 +1,3 @@
-require('dotenv').config();
-
 const
     request = require('request'),
     pantry = require('pantry-node'),
@@ -57,12 +55,12 @@ async function putDataToPantry(results) {
     try {
 
         // Delete a basket
-        pantryClient.basket
+        await pantryClient.basket
             .delete('aiforemployment')
             .then((response) => console.log(response))
 
         // Create a basket with a new data
-        pantryClient.basket
+        await pantryClient.basket
             .create('aiforemployment', results)
             .then((response) => console.log(response))
 

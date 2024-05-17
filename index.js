@@ -57,15 +57,18 @@ async function putDataToPantry(results) {
         // Delete a basket
         await pantryClient.basket
             .delete('aiforemployment')
-            .then((response) => console.log(response))
-
-        // Create a basket with a new data
-        await pantryClient.basket
-            .create('aiforemployment', results)
-            .then((response) => console.log(response))
-
+            .then((response) => console.log(response));
     } catch (error) {
         // There was an error so display it and return
         console.log('Pantry Update Error: ', e)
+    } finally {
+        // Create a basket with new data, regardless of previous success
+        await pantryClient.basket
+            .create('aiforemployment', results)
+            .then((response) => console.log(response))
+            .catch((error) => {
+                // If there's an error during creation, log it
+                console.log('Pantry Create Error: ', error);
+            });
     }
 }
